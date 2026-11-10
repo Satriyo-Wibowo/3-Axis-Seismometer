@@ -1,22 +1,37 @@
 <h1 align="center">
     <br>
-    <b>3-Axis Seismometer Based on MMA7361L and MCP6002 for Low Frequency Seismic Wave Acquisition</b>
+    <b>3-Axis Seismometer Based on MMA7361L and MCP6002 for Low-Frequency Seismic Wave Acquisition</b>
     <br>
 </h1>
-
 <p align="center">
-    Seismometer, either known as Geophone, is a device that could detect and record the signal of seismic wave.
-    The mechanism behind it relies on the mechanical part that moved because of the vibration which later converted into electrical signal.
-    Seismometer could have a wide range frequency detection, but usually it's just around 1 Hz up to 40 Hz with high sensitivity.
-    The downside of Seismometer is it could only detect in 1-axis at a single time and it's expensive.
-    Here is the thing, imagine if you want to build 3-axis seismic wave detection system for monitoring purpose, but not only in one place, it need to be build at several places at a same time like in an active volcanic mountain.
-    <br>
-    Thus, this project aims to make a seismic wave detector that could detect 3-axis simultaneously (from 0.1 - 100 Hz) and come in a small single board PCB. Its based on MMA7361L (capacitive MEMS Accelerometer) and MCP6002 (single-supply op-amp). Small, low-cost, reliable, and easy enough to make. 
-    This could be a breakthrough for any vibration monitoring/detection related activities.
-    </br>
+    <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
+    <img src="https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=Jupyter&logoColor=white" alt="Jupyter">
+    <img src="https://img.shields.io/badge/Analog%20Circuit-red?style=flat" alt="Hardware">
+    <img src="https://img.shields.io/badge/EasyEDA-blue?style=flat" alt="EasyEDA">
+    <img src="https://img.shields.io/badge/Proteus%208-yellow?style=flat" alt="Proteus">
+    <img src="https://img.shields.io/badge/PicoScope-green?style=flat" alt="PicoScope">
 </p>
 
----
+<p align="center">
+    A seismometer (or geophone) is a device that detects and records seismic wave signals. The mechanism relies on a mechanical part moving due to vibrations, which is then converted into an electrical signal. Normally, a seismometer can cover a wide frequency range (around 1 Hz to 40 Hz with high sensitivity). But the downside? Traditional ones can only detect one axis at a time, and they are super expensive.
+    <br><br>
+    Imagine wanting to build a 3-axis seismic detection system for monitoring an active volcano, and you need to place it in multiple locations at once. That would cost a fortune. 
+    <br><br>
+    Thus, I built this project to create a seismic wave detector that can <b>detect 3 axes simultaneously (from 0.1 to 100 Hz)</b> on a small, single-board PCB. It's based on the MMA7361L (capacitive MEMS accelerometer) and the MCP6002 (single-supply op-amp). <b>It's small, low-cost, reliable, and easy to manufacture</b>. I really think this could be a breakthrough for any vibration monitoring activities.
+</p>
+
+<h2 align="center">
+    <b>Key Specs</b><br>
+</h2>
+
+<div align="center">
+    <b>- Sensor:</b> MMA7361L (Capacitive MEMS Accelerometer) <br>
+    <b>- Signal Processing:</b> MCP6002 single-supply Op-Amp <br>
+    <b>- Frequency Range:</b> 0.1 - 100 Hz (Optimal at 1 - 40 Hz) <br>
+    <b>- Board Size:</b> 5x5 cm (2-layer PCB) <br>
+    <b>- Tools:</b> EasyEDA, JLCPCB, Python, PicoScope, Proteus 8 Professional<br><br>
+</div>
+
 ## Table of Contents
 - [Schematic](#schematic)
 - [PCB Final Product](#pcb-final-product)
@@ -24,71 +39,49 @@
 - [Performance Analysis](#performance-analysis)
 - [Conclusion](#conclusion)
 - [Recommendation for Future Improvements](#recommendation-for-future-improvements)
----
 
 ## Schematic
-This 3-Axis Seismometer was built based on integrator circuit using op-amp.
-It's actually a low-pass filter but have a significant slope value for the frequency response plot, it's -20dB/decade. 
-In addition, the circuit will also shift the signal wave phase at 90 degrees from its original phase.
-With this slope value and phase shift, the acceleration wave could be converted into a proportionally velocity wave.
-But, in order to do that, the signal need to past the cut-off frequency value to get the integration to work.
+I built this 3-Axis Seismometer based on an integrator circuit using an op-amp. It basically acts as a low-pass filter but has a significant slope in its frequency response plot: <b>-20 dB/decade</b>. The circuit also shifts the signal wave phase by <b>90 degrees</b> from its original phase. With this slope and phase shift, the acceleration wave is converted into a proportional velocity wave. But remember, for the integration to work, the signal *must* pass the cut-off frequency value.
 
 <div align="center">
     <img src="https://github.com/Satriyo-Wibowo/3-Axis-Seismometer/blob/main/documentation/schematic.png">
 </div>
 
 ## PCB Final Product
-Both schematic and PCB was designed with EasyEDA, as it's a same corporation as JLCPCB.
-PCB layout was heavily optimized to be as small as possible and better noise reduction, resulting in 5x5 cm board.
-The optimizations including separation of power and analog area, via stitching, and accelerometer ideal placement.
+I designed both the schematic and PCB using EasyEDA (since it's from the same company as JLCPCB). I heavily optimized the PCB layout to keep it as small as possible and improve noise reduction, resulting in a <b>5x5 cm board</b>. The optimizations include <b>the separation of power and analog areas, via stitching, and optimal accelerometer placement</b>.
 
 <div align="center">
-    <img src="https://github.com/Satriyo-Wibowo/3-Axis-Seismometer/blob/main/documentation/PCB_product.jpeg">
+    <img src="https://github.com/Satriyo-Wibowo/3-Axis-Seismometer/blob/main/documentation/PCB_product.jpeg" width="450">
 </div>
 
 > [!Note]
-> Why the board red? coz it's cool. Why there is a witcher symbol in the board? coz I like the game.
+> Why is the board red? Because it's cool. Why is there a Witcher symbol on the board? Because I like the game.
 
 ## Testing
-The test phase is done by placing the seismometer at the top of a subwoofer.
-It will mimic the vibration of seismic wave with spesific value of frequency.
-A power supply circuit and vibration exciter is needed to energize the subwoofer.
-Beside of that, the board still needed to tested with a vibration that contain random range of frequency.
-To do that, we can place the board at a flat surface such as table an give it a manual vibration.
-The output signal could be recorded by Picoscope and it's dedicated software at laptop.
+For the testing phase, I placed the seismometer on top of a subwoofer to mimic the vibration of seismic waves with specific frequency values. I needed a power supply circuit and a vibration exciter to energize the subwoofer. 
+Besides that, I also tested the board with random frequency vibrations by placing it on a flat surface (like a table) and giving it manual vibrations. The output signal was recorded using a PicoScope and its software on my laptop.
 
 <div align="center">
     <img src="https://github.com/Satriyo-Wibowo/3-Axis-Seismometer/blob/main/documentation/testing_environment.jpg">
 </div>
 
 ## Performance Analysis
-The data from testing phase then added into a Python-based code to produce gain (frequency response) and phase plot for later analyzation.
-The gain plot shows that the circuit start to integrating the input signal at 1 Hz.
-But, when it comes to mid-high frequency range, the circuit start to significantly attenuating the signal.
-This could be caused by limitation of the components.
+I inputted the data from the testing phase into a <b><a href="https://github.com/Satriyo-Wibowo/3-Axis-Seismometer/blob/main/code/gain_phase_analysis.ipynb" target="_blank">Python-based script</a></b> to generate the gain (frequency response) and phase plots. The gain plot shows that the circuit starts integrating the input signal at 1 Hz. However, in the mid-to-high frequency range, the circuit starts to significantly attenuate the signal. I suspect this is due to component limitations.
+
 <div align="center">
     <img src="https://github.com/Satriyo-Wibowo/3-Axis-Seismometer/blob/main/documentation/gain_output.png">
 </div>
 
-The phase plot shows that the output signal have a tendency to keep phase shift at 90 degrees.
+The phase plot shows that the output signal has a tendency to maintain a 90-degree phase shift.
+
 <div align="center">
     <img src="https://github.com/Satriyo-Wibowo/3-Axis-Seismometer/blob/main/documentation/phase_output.png">
 </div>
 
 ## Conclusion
-Although the bigger aims of this project have achieved successfully, which are make a Seismometer that could detect 3-axis simultaneously,
-the board is small enough, cost less than the Geophone, and easy to make, but the board still come with some big flaws.
-The integration process just work at limited frequency range, around 1 Hz to 40-ish Hz.
-The noise reduction also not near like what it's expected to be, a lot of noise at the lower and higher frequency range.
-But this project could be one step closer to a reliable 3-axis Seismometer.
+Even though the primary goals of this project were successfully achieved—creating a seismometer that can detect 3 axes simultaneously, is small enough, costs less than a geophone, and is easy to make—the board still has some significant flaws. The integration process only works within a <b>limited frequency range, roughly 1 Hz to 40 Hz</b>. The <b>noise reduction is also not near what was expected</b>, with a lot of noise at the lower and higher frequency ranges. Nevertheless, I believe this project brings us one step closer to a reliable 3-axis seismometer.
 
 ## Recommendation For Future Improvements
-The fact that the components I was used are not in a good condition, like the accelerometer or the op-amp 
-(it have refurbished several times, CRAZY!, I know) due to fund limitation, 
-I think this also plays a big role in not-good-enough performance of the Seismometer.
-I do also think that grounding method of the board is not good enough. 
-The area of the analog and power sure is separated by the components placement, 
-but the ground plane is still connected in a single plane,
-not in separated plane then connected by a via like star grounding method.
-This could led to a loop ground phenomenon and worsening the EMI effect. 
-The via stitching only helped for the signal to have a shorter return to the ground pad.
+Honestly, the components I used were not in good condition—such as the accelerometer and the op-amp <b>(they had been refurbished several times, which is crazy, I know!)</b> due to funding limitations. I believe this played a big role in the suboptimal performance of the seismometer. 
+
+I also think the grounding method of the board is not good enough. The analog and power areas are indeed separated by component placement, but the ground plane is still connected in a single plane, rather than separated into different planes and then connected by a via <b>(like the star grounding method)</b>. This could lead to a <b>ground loop phenomenon</b> and worsen the EMI effect. The via stitching only helped the signal have a shorter return path to the ground pad.
